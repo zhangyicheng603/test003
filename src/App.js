@@ -20,6 +20,7 @@ class App extends Component {
         this.login = this.login.bind(this);
         this.userNameChange = this.userNameChange.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
+        this.enterClick = this.enterClick.bind(this);
     }
     userNameChange(event){
         //读取输入的值
@@ -63,45 +64,7 @@ class App extends Component {
             });
             // alert("密码不能为空");
         }else {
-            /*//去查询数据库
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials=true;
-            var url = "http://localhost:8080/selectUserByUserNameAndPassword?userName="+userName+"&password="+password;
-            console.log(url);
-            xhr.open('GET', url, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send();
-            xhr.onreadystatechange = function() {
-                /!*
-                xhr.readyState 的值 (未验证，先写在这)
-                0：请求未初始化，还没有调用 open()。
-                1：请求已经  建立，但是还没有发送，还没有调用 send()。
-                2：请求已发送，正在处理中（通常现在可以从响应中获取内容头）。
-                3：请求在处理中；通常响应中已有部分数据可用了，没有全部完成。
-                4：响应已完成；您可以获取并使用服务器的响应了。
-                xhr.status 的值
-                https://blog.csdn.net/liu050604/article/details/78464500
-                * *!/
-                console.log(xhr.readyState);
-                //alert(xhr.readyState);
-                //alert(xhr.status);
-                if (xhr.readyState == 4 && xhr.status === 200) {
-                    /!*alert(xhr.responseText);
-                    console.log(xhr.responseText);*!/
-                    if ("" === xhr.responseText){
-                        //未查询到指定用户
-                        alert("用户名或密码不对");
-                        //isRight = true;
-                        //alert(isRight);
-                    }else {
-                        //正常，可以登录
-                        alert("正确");
-
-                    }
-                }
-            };*/
-
-
+            //去查询数据库
             //修改请求头
             let myHeaders = new Headers({
                 'Access-Control-Allow-Origin': '*',
@@ -125,8 +88,6 @@ class App extends Component {
                     }else {
                         //正确
                         //alert(`正确`);
-                        /*const win = window.open("_self");
-                        win.location.href="main.html";*/
                         /*更新用户登陆时间*/
                         const loginTime = moment().format('YYYY-MM-DD HH:mm:ss');
                         const loginTimeUrl = 'http://localhost:8080/updateLoginTimeById?loginTime='+loginTime+'&id='+data.id;
@@ -140,11 +101,19 @@ class App extends Component {
                                 console.log(data);
                             }
                         );
-                        this.props.history.replace('/home/'+userName);
+                        //将用户名储存在session中
+                        sessionStorage.setItem("userName", userName);
+                        this.props.history.replace('/home');
                     }
                 }
             )
         }
+    }
+    enterClick(){
+        this.login();
+    }
+    componentDidUpdate(){
+        document.addEventListener('keydown',this.onkeydown);
     }
     render() {
         return (
@@ -168,7 +137,7 @@ class App extends Component {
                         </div>
                         <div>
                             <div className="bottom_div_style">
-                                <input className="bottom_btn_style" type="submit" value="登录" />
+                                <input className="bottom_btn_style" type="submit" value="登录" onKeyDown={this.enterClick}/>
                             </div>
                            {/* <div className="bottom_div_style">
                                 <input  className="bottom_btn_style" type="button" value="注册" />
