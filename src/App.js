@@ -32,7 +32,6 @@ class App extends Component {
         // this.setState({userName:userName1});
         console.log("读取的值"+this.state.userName)
         this.setState({
-            // nameHelp: ""
             help:""
         });
     }
@@ -40,7 +39,6 @@ class App extends Component {
         const password = event.target.value;
         this.setState({password});
         this.setState({
-            // passwordHelp: ""
             help:""
         })
     }
@@ -139,9 +137,9 @@ class App extends Component {
                             <div className="bottom_div_style">
                                 <input className="bottom_btn_style" type="submit" value="登录" onKeyDown={this.enterClick}/>
                             </div>
-                           {/* <div className="bottom_div_style">
+                           /* <div className="bottom_div_style">
                                 <input  className="bottom_btn_style" type="button" value="注册" />
-                            </div>*/}
+                            </div>*/
                         </div>
                     </form>
 
