@@ -137,9 +137,9 @@ class App extends Component {
                             <div className="bottom_div_style">
                                 <input className="bottom_btn_style" type="submit" value="登录" onKeyDown={this.enterClick}/>
                             </div>
-                           /* <div className="bottom_div_style">
+                            {/*<div className="bottom_div_style">
                                 <input  className="bottom_btn_style" type="button" value="注册" />
-                            </div>*/
+                            </div>*/}
                         </div>
                     </form>
 
